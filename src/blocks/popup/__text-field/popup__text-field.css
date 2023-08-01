@@ -1,0 +1,31 @@
+.popup__text-field {
+  color: #000;
+  font-family: 'Inter', Arial, Helvetica;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  border: none;
+  border-bottom: 1px rgba(0, 0, 0, .2) solid;
+  margin: 0 0 24px;
+  padding: 0;
+  width: 100%;
+  min-height: 32px;
+}
+
+.popup__text-field::placeholder {
+  color: #C4C4C4;
+}
+.popup__text-field::-moz-placeholder {
+  color: #C4C4C4;
+}
+.popup__text-field:-moz-placeholder {
+  color: #C4C4C4;
+}
+.popup__text-field:-ms-input-placeholder {
+  color: #C4C4C4;
+}
+
+.popup__text-field:valid {
+  border-bottom: 1px #00FF00 solid;
+}

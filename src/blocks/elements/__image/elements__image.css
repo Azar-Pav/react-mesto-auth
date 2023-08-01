@@ -1,0 +1,12 @@
+.elements__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+}
