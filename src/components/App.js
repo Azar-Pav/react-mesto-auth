@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from './ProtectedRoute';
 import Header from "./Header";
 import Footer from "./Footer";
@@ -7,6 +7,8 @@ import Main from "./Main";
 import Register from "./Register";
 import Login from "./Login";
 import api from '../utils/Api.js';
+import * as auth from '../utils/auth.js'
+import InfoTooltip from './InfoTooltip';
 import { CurrentUserContext, loadingUser } from '../contexts/CurrentUserContext.js';
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -18,9 +20,14 @@ import ImagePopup from "./ImagePopup";
 
 
 function App() {
+  const navigate = useNavigate();
+
   const [isEditAvatarPopupOpen,setEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
+  const [infoTooltip, setInfoTooltip] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
@@ -39,6 +46,20 @@ function App() {
       console.error(err);
     })
   }, [])
+
+  function handleRegistration({password, email}) {
+    auth.register(password, email)
+      .then((res) => {
+        setInfoTooltipOpen(true);
+        setInfoTooltip(true);
+        navigate("/sign-in", { replace: true });
+      })
+      .catch((err) => {
+        setInfoTooltipOpen(true);
+        setInfoTooltip(false);
+        console.error(err);
+      });
+  }
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
@@ -98,6 +119,7 @@ function App() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setSelectedCard({});
+    setInfoTooltipOpen(false)
   };
 
   function handleCardLike(card) {
@@ -139,7 +161,6 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route path="/" element={<Header pathTo={"/sign-in"} linkText={"Выйти"}/>}/>
@@ -168,7 +189,7 @@ function App() {
               loggedIn={loggedIn}
             />}
           />
-          <Route path="/sign-up" element={<Register/>}/>
+          <Route path="/sign-up" element={<Register onRegister={handleRegistration}/>}/>
           <Route path="/sign-in" element={<Login/>}/>
         </Routes>
         <Footer />
@@ -195,8 +216,8 @@ function App() {
           />
         </CurrentButtonTextContext.Provider>
         <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+        <InfoTooltip info={infoTooltip} isOpen={isInfoTooltipOpen} onClose={closeAllPopups}/>
       </CurrentUserContext.Provider>
-    </BrowserRouter>
   );
 }
 
