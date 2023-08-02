@@ -37,6 +37,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
+    checkToken();
+
     Promise.all([ api.getUser(), api.getInitialCards() ])
     .then(([ userData, cardsData ]) => {
       setCurrentUser(userData);
@@ -46,6 +48,19 @@ function App() {
       console.error(err);
     })
   }, [])
+
+  function checkToken() {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth.checkToken(jwt)
+      .then((res) => {
+        if (res){
+          setLoggedIn(true);
+          navigate("/", {replace: true})
+        }
+      });
+  }
+  }
 
   function handleRegistration({password, email}) {
     auth.register(password, email)
@@ -63,13 +78,24 @@ function App() {
 
   function handleLogin({password, email}) {
     auth.authorize(password, email)
-      .then((res) => {
-        setLoggedIn(true);
-        navigate("/", { replace: true });
+      .then((data) => {
+        if (data) {
+          setLoggedIn(true);
+          navigate("/", { replace: true });
+          if (!localStorage.getItem('jwt')) {
+            localStorage.setItem('jwt', data.token);
+            return data;
+          }
+        }
       })
       .catch((err) => {
         console.error(err);
       });
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
   }
 
   function handleEditAvatarClick() {
@@ -174,7 +200,7 @@ function App() {
   return (
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route path="/" element={<Header pathTo={"/sign-in"} linkText={"Выйти"}/>}/>
+          <Route path="/" element={<Header pathTo={"/sign-in"} linkText={"Выйти"} onSignOut={handleLogout}/>}/>
           <Route path="/sign-up" element={<Header pathTo={"/sign-in"} linkText={"Войти"}/>}/>
           <Route path="/sign-in" element={<Header pathTo={"/sign-up"} linkText={"Регистрация"}/>}/>
         </Routes>

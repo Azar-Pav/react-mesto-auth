@@ -4,7 +4,6 @@ function checkResponse(res) {
   if (res.ok) {
     return res.json()
   } else {
-
     return Promise.reject(`Ошибка: ${res.status}`)
   }
 }
@@ -25,21 +24,19 @@ export const register = (password, email) => {
 };
 
 export const authorize = (password, email) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({password, email})
+    body: JSON.stringify({
+      password: password,
+      email: email
+    })
   })
   .then(checkResponse)
-  .then((data) => {
-    if (!localStorage.getItem('jwt')){
-      localStorage.setItem('jwt', data.jwt);
-      return data;
-    }
-  })
+
   .catch(err => console.log(err))
 };
 
@@ -53,5 +50,4 @@ export const checkToken = (token) => {
     }
   })
   .then(checkResponse)
-  .then(data => data)
 }
