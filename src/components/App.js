@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
+import ProtectedRouteElement from './ProtectedRoute';
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
@@ -26,6 +27,7 @@ function App() {
 
   const [currentButtonText, setCurrentButtonText] = useState('noLoading');
   const [currentUser, setCurrentUser] = useState(loadingUser);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     Promise.all([ api.getUser(), api.getInitialCards() ])
@@ -146,7 +148,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/" element={
-            <Main
+            <ProtectedRouteElement
+              element={Main}
+              loggedIn={loggedIn}
               onEditAvatar={handleEditAvatarClick}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
@@ -154,6 +158,14 @@ function App() {
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
               cards={cards}
+            />}
+          />
+          <Route path="*" element={
+            <ProtectedRouteElement
+              element={Navigate}
+              to={"/"}
+              replace={true}
+              loggedIn={loggedIn}
             />}
           />
           <Route path="/sign-up" element={<Register/>}/>
