@@ -61,6 +61,17 @@ function App() {
       });
   }
 
+  function handleLogin({password, email}) {
+    auth.authorize(password, email)
+      .then((res) => {
+        setLoggedIn(true);
+        navigate("/", { replace: true });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
   };
@@ -190,7 +201,7 @@ function App() {
             />}
           />
           <Route path="/sign-up" element={<Register onRegister={handleRegistration}/>}/>
-          <Route path="/sign-in" element={<Login/>}/>
+          <Route path="/sign-in" element={<Login onLogin={handleLogin}/>}/>
         </Routes>
         <Footer />
         <CurrentButtonTextContext.Provider value={buttonText[currentButtonText]}>
