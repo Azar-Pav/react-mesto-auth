@@ -139,7 +139,11 @@ function App() {
   return (
     <BrowserRouter>
       <CurrentUserContext.Provider value={currentUser}>
-        <Header />
+        <Routes>
+          <Route path="/" element={<Header pathTo={"/sign-in"} linkText={"Выйти"}/>}/>
+          <Route path="/sign-up" element={<Header pathTo={"/sign-in"} linkText={"Войти"}/>}/>
+          <Route path="/sign-in" element={<Header pathTo={"/sign-up"} linkText={"Регистрация"}/>}/>
+        </Routes>
         <Routes>
           <Route path="/" element={
             <Main
