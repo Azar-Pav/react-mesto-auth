@@ -3,6 +3,8 @@ import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
+import Register from "./Register";
+import Login from "./Login";
 import api from '../utils/Api.js';
 import { CurrentUserContext, loadingUser } from '../contexts/CurrentUserContext.js';
 import EditProfilePopup from "./EditProfilePopup";
@@ -150,8 +152,8 @@ function App() {
               cards={cards}
             />}
           />
-          {/* <Route path="/sign-up" element={<Register/>}/>
-          <Route path="/sign-in" element={<Login/>}/> */}
+          <Route path="/sign-up" element={<Register/>}/>
+          <Route path="/sign-in" element={<Login/>}/>
         </Routes>
         <Footer />
         <CurrentButtonTextContext.Provider value={buttonText[currentButtonText]}>
