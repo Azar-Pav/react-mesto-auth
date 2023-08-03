@@ -10,6 +10,14 @@ body {
 @import url(./blocks/header/__action/header__action.css);
 @import url(./blocks/header/__action/_signed-in/header__action_signed-in.css);
 @import url(./blocks/header/__email/header__email.css);
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__legend/auth__legend.css);
+@import url(./blocks/auth/__inputs/auth__inputs.css);
+@import url(./blocks/auth/__input/auth__input.css);
+@import url(./blocks/auth/__save-button/auth__save-button.css);
+@import url(./blocks/auth/__save-button/_disabled/auth__save-button_disabled.css);
+@import url(./blocks/auth/__input-error/auth__input-error.css);
+@import url(./blocks/auth/__action/auth__action.css);
 @import url(./blocks/content/content.css);
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__avatar/profile__avatar.css);

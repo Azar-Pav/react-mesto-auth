@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//TODO сисс
 function Login(props) {
   const [values, setValues] = useState({ email: '', password: '' })
   const handleChange = (event) => {
@@ -16,13 +15,13 @@ function Login(props) {
   }
 
   return (
-    <div className="popup__container">
-        <h2 className="popup__legend">Login</h2>
-        <form className="popup__edit-form" noValidate onSubmit={handleSubmit}>
-          <fieldset className="popup__edit">
+    <main className="auth">
+      <h2 className="auth__legend">Вход</h2>
+      <form noValidate onSubmit={handleSubmit}>
+        <fieldset className="auth__inputs">
           <input
             type="email"
-            className="auth__text-field"
+            className="auth__input"
             id="input-email"
             name="email"
             placeholder="Email"
@@ -33,7 +32,7 @@ function Login(props) {
           <span className="input-email-error"></span>
           <input
             type="password"
-            className="auth__text-field"
+            className="auth__input"
             id="input-password"
             name="password"
             placeholder="Пароль"
@@ -42,10 +41,12 @@ function Login(props) {
             value={values.password}
           />
           <span className="input-password-error"></span>
-            <button className="popup__save-button" type="submit" name="Сохранить">Login</button>
-          </fieldset>
-        </form>
-      </div>
+        </fieldset>
+        <button className="auth__save-button" type="submit" name="Войти">
+          Войти
+        </button>
+      </form>
+    </main>
   );
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Register(props) {
   const [values, setValues] = useState({ email: '', password: '' })
@@ -16,13 +17,13 @@ function Register(props) {
   }
 
   return (
-    <div className="popup__container">
-        <h2 className="popup__legend">Register</h2>
-        <form className="popup__edit-form" noValidate  onSubmit={handleSubmit}>
-          <fieldset className="popup__edit">
+    <main className="auth">
+      <h2 className="auth__legend">Регистрация</h2>
+      <form noValidate onSubmit={handleSubmit}>
+        <fieldset className="auth__inputs">
           <input
             type="email"
-            className="auth__text-field"
+            className="auth__input"
             id="input-email"
             name="email"
             placeholder="Email"
@@ -33,7 +34,7 @@ function Register(props) {
           <span className="input-email-error"></span>
           <input
             type="password"
-            className="auth__text-field"
+            className="auth__input"
             id="input-password"
             name="password"
             placeholder="Пароль"
@@ -42,10 +43,13 @@ function Register(props) {
             value={values.password}
           />
           <span className="input-password-error"></span>
-            <button className="popup__save-button" type="submit" name="Сохранить">Register</button>
-          </fieldset>
-        </form>
-      </div>
+        </fieldset>
+        <button className="auth__save-button" type="submit" name="Войти">
+          Зарегистрироваться
+        </button>
+      </form>
+      <Link to={"/sign-in"} className="auth__action">Уже зарегистрированы? Войти</Link>
+    </main>
   );
 }
 

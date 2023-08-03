@@ -1,0 +1,18 @@
+.auth__action {
+  color: #FFF;
+  font-family: 'Inter', Arial, Helvetica;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.22;
+  margin: 0 auto 0;
+  text-decoration: none;
+  border-bottom: solid #FFF 0px;
+  transition: border-bottom .3s linear;
+  box-sizing: border-box;
+}
+
+.auth__action:hover {
+  border-bottom: solid #FFF 1px;
+}
+
