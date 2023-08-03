@@ -28,13 +28,14 @@ function App() {
 
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [infoTooltip, setInfoTooltip] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState('');
 
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
 
   const [currentButtonText, setCurrentButtonText] = useState('noLoading');
   const [currentUser, setCurrentUser] = useState(loadingUser);
-  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     checkToken();
@@ -54,9 +55,10 @@ function App() {
     if (jwt) {
       auth.checkToken(jwt)
       .then((res) => {
-        if (res){
+        if (res) {
           setLoggedIn(true);
           navigate("/", {replace: true})
+          setEmail(res.data.email);
         }
       });
   }
@@ -82,6 +84,7 @@ function App() {
         if (data) {
           setLoggedIn(true);
           navigate("/", { replace: true });
+          setEmail(email);
           if (!localStorage.getItem('jwt')) {
             localStorage.setItem('jwt', data.token);
             return data;
@@ -200,7 +203,7 @@ function App() {
   return (
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route path="/" element={<Header pathTo={"/sign-in"} linkText={"Выйти"} onSignOut={handleLogout}/>}/>
+          <Route path="/" element={<Header pathTo={"/sign-in"} linkText={"Выйти"} onSignOut={handleLogout} email={email}/>}/>
           <Route path="/sign-up" element={<Header pathTo={"/sign-in"} linkText={"Войти"}/>}/>
           <Route path="/sign-in" element={<Header pathTo={"/sign-up"} linkText={"Регистрация"}/>}/>
         </Routes>

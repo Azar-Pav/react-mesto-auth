@@ -1,0 +1,36 @@
+.header__action {
+  color: #FFF;
+  font-family: 'Inter', Arial, Helvetica;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  margin: 6px 0 auto 0;
+  text-decoration: none;
+  border-bottom: solid #FFF 0px;
+  transition: border-bottom .3s linear;
+  box-sizing: border-box;
+}
+
+.header__action:hover {
+  border-bottom: solid #FFF 1px;
+}
+
+@media all and (max-width: 916px) {
+  .header__action {
+    margin: 6px 19px auto 0;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .header__action {
+    font-size: 14px;
+    line-height: 1.21;
+  }
+}
+
+@media all and (max-width: 570px) {
+  .header__action {
+    margin: 6px 26px auto 0;
+  }
+}

@@ -1,0 +1,10 @@
+.header__container {
+  display: flex;
+}
+
+@media all and (max-width: 570px) {
+  .header__container {
+    display: block;
+  }
+}
+
