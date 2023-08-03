@@ -21,4 +21,4 @@
 
 ## **Ссылка**
 
-* [Ссылка на проект в github.io](https://azar-pav.github.io/mesto-react-auth/)
+* [Ссылка на проект в github.io](https://azar-pav.github.io/react-mesto-auth/)
