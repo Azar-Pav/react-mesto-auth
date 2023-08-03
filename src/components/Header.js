@@ -10,7 +10,7 @@ function Header(props) {
         <p className="header__email">{props.email}</p>
         <Link
           to={props.pathTo}
-          className={`header__action ${props.email && `header__action_signed-in`}`}
+          className={`header__action ${props.email ? `header__action_signed-in`:''}`}
           onClick={props.onSignOut}
         >
           {props.linkText}
