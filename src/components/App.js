@@ -174,7 +174,9 @@ function App() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setSelectedCard({});
-    setInfoTooltipOpen(false)
+    setIsImagePopupOpen(false);
+    setInfoTooltipOpen(false);
+    setIsConfirmPopupOpen(false);
   };
 
   function handleCardLike(card) {
@@ -202,11 +204,15 @@ function App() {
   }
 
   function handleCardDelete() {
-    const cardsWithoutCard = () => cards.filter((c) => c._id !== selectedCard._id);
+    const renderCardsWithoutCard = () => {
+      setCards((state) => state.filter(
+        (c) => c._id !== selectedCard._id
+      ));
+    }
     setIsConfirmPopupLoading(true);
     api.deleteCard(selectedCard._id)
     .then((res) => {
-      setCards(cardsWithoutCard);
+      renderCardsWithoutCard();
       closeAllPopups();
     })
     .catch((err) => {
