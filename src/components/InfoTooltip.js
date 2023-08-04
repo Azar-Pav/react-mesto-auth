@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-//TODO реализация иконки, шрифт и сисс
+
 function InfoTooltip({ isOpen, onClose, info }) {
 
-  function handleMouseUpClose(e) {
+  function handleCloseByOverlay(e) {
     if (e.target.classList.contains('popup')) {
       onClose();
     }
@@ -24,7 +24,7 @@ function InfoTooltip({ isOpen, onClose, info }) {
     };
   }, [isOpen]);
   return (
-    <div className={`popup ${isOpen && `popup_opened`}`} onMouseUp={handleMouseUpClose}>
+    <div className={`popup ${isOpen ? `popup_opened`  : ''}`} onMouseUp={handleCloseByOverlay}>
       <div className="popup__container">
         <button className="popup__close-button" type="button" name="Закрыть" onClick={onClose}></button>
         <div className={`popup__info-img ${info ? "popup__info-img_success" : "popup__info-img_fail"}`}></div>

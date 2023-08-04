@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 
-function PopupWithForm({ name, title, buttonText, onSubmit, isOpen, onClose, isLoading, children }) {
-  function handleMouseUpClose(e) {
+function PopupWithForm({ name, title, buttonText, buttonTextLoad, onSubmit, isOpen, onClose, isLoading, children }) {
+  function handleCloseByOverlay(e) {
     if (e.target.classList.contains('popup')) {
       onClose();
     }
@@ -23,14 +23,14 @@ function PopupWithForm({ name, title, buttonText, onSubmit, isOpen, onClose, isL
     };
   }, [isOpen]);
   return (
-    <div className={`popup popup_type-js_${name} ${isOpen && `popup_opened`}`} onMouseUp={handleMouseUpClose}>
+    <div className={`popup popup_type-js_${name} ${isOpen ? `popup_opened`  : ''}`} onMouseUp={handleCloseByOverlay}>
       <div className="popup__container">
         <button className="popup__close-button" type="button" name="Закрыть" onClick={onClose}></button>
         <h2 className="popup__legend">{title}</h2>
         <form name={name} className="popup__edit-form" noValidate onSubmit={onSubmit}>
           <fieldset className="popup__edit">
             {children}
-            <button className="popup__save-button" type="submit" name="Сохранить" disabled={isLoading}>{buttonText}</button>
+            <button className={`popup__save-button ${isLoading ? 'popup__save-button_disabled' : ''}`} type="submit" name="Сохранить" disabled={isLoading}>{isLoading ? buttonTextLoad : buttonText}</button>
           </fieldset>
         </form>
       </div>

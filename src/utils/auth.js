@@ -36,8 +36,6 @@ export const authorize = (password, email) => {
     })
   })
   .then(checkResponse)
-
-  .catch(err => console.log(err))
 };
 
 export const checkToken = (token) => {
